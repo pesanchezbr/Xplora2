@@ -6,6 +6,8 @@ using System;
 using UnityEngine.EventSystems;
 using System.Linq;
 
+//esto es un fix
+
 public class ControllerBoard : MonoBehaviour {
 
     //START PSB
