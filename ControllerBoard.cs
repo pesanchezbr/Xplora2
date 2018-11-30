@@ -12,6 +12,9 @@ public class ControllerBoard : MonoBehaviour {
     public SociedadesController SocController;
     //END PSB
 
+
+    //comment
+
     public Animator anim;
     public Piece[,] pieces = new Piece[24, 24];
     public Piece[,] piecesAux = new Piece[24, 24];
