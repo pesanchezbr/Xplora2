@@ -8,6 +8,9 @@ using System.Linq;
 
 //esto es un fix
 //fix de pedro
+
+
+  //VERGA
 public class ControllerBoard : MonoBehaviour {
 
     //START PSB
