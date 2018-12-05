@@ -18,4 +18,11 @@ public class ControllerBoard : MonoBehaviour {
     private void Start() {
 
     }
+
+    /* aarb */
+    public void AddDestino(int comp, string destino,bool val, string tipo){
+        //Agregar destino al granjero que sale de un componente
+        destinos[comp].Add(destino);
+        destinosComp[comp].Add(new DestinoComponentes(destino,val,tipo));
+    }
 }
