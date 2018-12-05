@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,3 +48,5 @@ public class ControllerBoard : MonoBehaviour {
 
     //ULTIMO CAMBIO VERSION 1.0
 }
+=======
+>>>>>>> b44bfcb84bb5139306015f06511e56e1f586b65c
