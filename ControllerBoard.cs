@@ -18,4 +18,14 @@ public class ControllerBoard : MonoBehaviour {
     private void Start() {
 
     }
+
+    //vivavv
+    void OlaKAse(){
+
+      print("Hola");
+      print("Que");
+      print("Hace");
+    }
+
+
 }
