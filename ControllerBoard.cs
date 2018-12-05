@@ -18,4 +18,8 @@ public class ControllerBoard : MonoBehaviour {
     private void Start() {
 
     }
+
+    void paquitaBarrio(){
+        print("Maldita Lisiada");
+    }
 }
