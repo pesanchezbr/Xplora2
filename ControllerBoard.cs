@@ -646,13 +646,8 @@ public class ControllerBoard : MonoBehaviour {
                     //ComponentesMapa.Add(pieces[x, y]);
                 }
             }
-            
-            
-        }
-        else {
-            //PSB ===================================================================================================================
-            if (id != "Export")
-            {
+            else {
+                //PSB ===================================================================================================================
                 print("No puedes colocar el componente: " + type + "/" + socGeneral);
                 GameObject Error = Instantiate(Resources.Load<GameObject>("ErrorSociedad"), GameObject.Find("Canvas").transform, false);
                 Error.name = "ErrorSociedad";
@@ -660,6 +655,16 @@ public class ControllerBoard : MonoBehaviour {
                 {
                     Destroy(GameObject.Find("ErrorSociedad"));
                 });
+                //PSB ===================================================================================================================
+            }
+
+
+        }
+        else {
+            //PSB ===================================================================================================================
+            if (id != "Export")
+            {
+                print("Esta posicion esta ocupada");
             }
             //PSB ===================================================================================================================
 
