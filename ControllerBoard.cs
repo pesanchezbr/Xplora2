@@ -37,6 +37,6 @@ public class ControllerBoard : MonoBehaviour {
         print("aaaaaaa");
         //aaaa
 
-
+        //saben que no me gustan esos cambios
     }
 }
