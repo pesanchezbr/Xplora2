@@ -30,6 +30,7 @@ public class ControllerBoard : MonoBehaviour {
 
     /* aarb */
     public void AddDestino(int comp, string destino,bool val, string tipo){
+<<<<<<< HEAD
         //Agregar destino al granjero que sale de un componente
         destinos[comp].Add(destino);
         destinosComp[comp].Add(new DestinoComponentes(destino,val,tipo));
@@ -35639,5 +35640,13 @@ public class ControllerBoard : MonoBehaviour {
         destinosComp[comp].Add(new DestinoComponentes(destino,val,tipo));destinos[comp].Add(destino);
         destinosComp[comp].Add(new DestinoComponentes(destino,val,tipo));destinos[comp].Add(destino);
         destinosComp[comp].Add(new DestinoComponentes(destino,val,tipo));
+=======
+        
+
+        print("aaaaaaa");
+        //aaaa
+
+
+>>>>>>> 33cb5e9a6876dd9eaa52f741b7bda9f72e28563d
     }
 }
