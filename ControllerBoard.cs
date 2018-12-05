@@ -29,6 +29,7 @@ public class ControllerBoard : MonoBehaviour {
       print("Hace");
     }
 
+
     /* aarb */
     public void AddDestino(int comp, string destino,bool val, string tipo){
         //Agregar destino al granjero que sale de un componente
