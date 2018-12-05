@@ -42,4 +42,8 @@ public class ControllerBoard : MonoBehaviour {
   
 
     }
+
+
+
+    //ULTIMO CAMBIO VERSION 1.0
 }
