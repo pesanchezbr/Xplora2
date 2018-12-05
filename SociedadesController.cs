@@ -8,24 +8,36 @@ public class SociedadesController : MonoBehaviour {
 	public GameObject btnAceptar;
 	public GameObject btnCerrar;
 	public GameObject btnFilSoc;
+    public GameObject BtnSocList;
 	private ControllerBoard tablero;
 	List<Piece> listaOcultados;
 	int cantFiltros;
-
-    //PSB Lista de Sociedades y los componentes que tienen cada uno
-    public Dictionary<int, List<string>> Sociedades;
-    //PSB
+    private GameObject ContainerFiltros, ContainerList;
+    public Dictionary<int, List<string> > Sociedades; //PSB Lista de Sociedades y los componentes que tienen cada uno
+    public Dictionary<int, Color > ColorSociedad; //diccionario colores
+    private Text TextPanelSociedad;
+    Color colorA,colorPC;
 
     // Use this for initialization
     void Start () {
 
         Sociedades = new Dictionary<int, List<string>>(); //PSB inicializo el diccionario de las sociedades
+        ColorSociedad = new Dictionary<int, Color >();
+
+        //crear colores iniciales
+        ColorSociedad.Add(0, new Color(0.99f, 0.99f, 0.99f, 1.00f));
+        ColorSociedad.Add(1, new Color(0f, 0.263581f, 0.6981132f, 1f));
+        ColorSociedad.Add(2, new Color(1f, 0.1118307f, 0f, 1f));
 
 		tablero = GameObject.Find("Tablero").GetComponent<ControllerBoard>();
 		panel = GameObject.Find("PanelFiltrosSociedades");
 		btnAceptar = GameObject.Find("BtnAceptarfilSoc");
 		btnCerrar = GameObject.Find("BtnCerrarPanelFilSoc");
 		btnFilSoc = GameObject.Find("BtnFilSoc");
+        BtnSocList = GameObject.Find("BtnSocList");
+        ContainerFiltros = GameObject.Find("ContainerFiltros");
+        ContainerList = GameObject.Find("ContainerList");
+        TextPanelSociedad = GameObject.Find("TextPanelSociedad").GetComponent<Text>();
 		//cantidad de filtros
 		cantFiltros = 3;
 		
@@ -36,23 +48,52 @@ public class SociedadesController : MonoBehaviour {
 		Listeners();
 		
 		//ocultar panel
-		panel.GetComponent<CanvasGroup>().alpha = 0;
+        btnAceptar.SetActive(false);
+        ContainerFiltros.GetComponent<CanvasGroup>().alpha = 0;
+		ContainerFiltros.SetActive(false);
+        ContainerList.GetComponent<CanvasGroup>().alpha = 0;
+		ContainerList.SetActive(false);
+        panel.GetComponent<CanvasGroup>().alpha = 0;
 		panel.SetActive(false);
 	}
-	private void Listeners(){
+	private void Listeners(){ //cambiado
+        //Boton para activar panel de filtros de sociedades
 		btnFilSoc.GetComponent<Button>().onClick.AddListener(()=>{
 			panel.SetActive(true);
+            btnAceptar.SetActive(true);
 			panel.GetComponent<CanvasGroup>().alpha = 1;
+            ContainerFiltros.SetActive(true);
+            ContainerFiltros.GetComponent<CanvasGroup>().alpha = 1;
+
+            //titulo
+            TextPanelSociedad.text = "Filtrar por sociedad";
+
 			//cuando se abre el panel ver si se limpio el tablero
 			if(GameObject.Find("Inventory").GetComponent<Inventory>().cleared){
 				RestoreFilters();
 				GameObject.Find("Inventory").GetComponent<Inventory>().cleared = false;
 			}
 		});
+
+        //boton para activar panel de lista de sociedades
+        BtnSocList.GetComponent<Button>().onClick.AddListener(()=>{
+			panel.SetActive(true);
+			panel.GetComponent<CanvasGroup>().alpha = 1;
+            ContainerList.SetActive(true);
+            ContainerList.GetComponent<CanvasGroup>().alpha = 1;
+            //titulo
+            TextPanelSociedad.text = "Selecciona una sociedad";			
+		});
+        //boton para cerrar panel
 		btnCerrar.GetComponent<Button>().onClick.AddListener(()=>{
+            btnAceptar.SetActive(false);
+            ContainerFiltros.GetComponent<CanvasGroup>().alpha = 0;
+            ContainerFiltros.SetActive(false);
+            ContainerList.GetComponent<CanvasGroup>().alpha = 0;
+            ContainerList.SetActive(false);
 			panel.GetComponent<CanvasGroup>().alpha = 0;
 			panel.SetActive(false);
-		});
+		});        
 		AceptarFiltros();
 		Sociedad();
 	}
@@ -104,21 +145,40 @@ public class SociedadesController : MonoBehaviour {
     }
     //PSB ===================================================================================================================
 
+   /*  public void AceptarFiltros()
+                Sociedades.Remove(sociedad);  
+        }
+    } */
+    //PSB ===================================================================================================================
 
-    public void Sociedad(){
-		//los botones de eleccion de sociedad
-        GameObject.Find("BtnSoc0").GetComponent<Button>().onClick.AddListener(()=>{
-            tablero.socGeneral = 0;
-        });
-        GameObject.Find("BtnSoc1").GetComponent<Button>().onClick.AddListener(()=>{
-            tablero.socGeneral = 1;
-        });
-        GameObject.Find("BtnSoc2").GetComponent<Button>().onClick.AddListener(()=>{
-            tablero.socGeneral = 2;
-        });        
+    public void Sociedad(){ //cambiado
+        //aarb
+        //inicializar toggles y botones
+
+        //indicador de sociedad activa
+        GameObject ImgSocActiva = GameObject.Find("ImgSocActiva");
+
+        for(int i=0; i< cantFiltros; i++){ //para cada uno de los toggles de las sociedades
+            int iterador = i;
+			GameObject.Find("FiltroSoc"+iterador).GetComponent<Toggle>().isOn = true;
+            
+            //listener boton seleccion de sociedad
+            GameObject.Find("BtnSoc"+iterador).GetComponent<Button>().onClick.AddListener(()=>{
+                tablero.socGeneral = iterador;
+                print(tablero.socGeneral);
+                //asignar color de sociedad activa
+                ImgSocActiva.GetComponent<Image>().color = ColorSociedad[iterador];
+                //cerrar panel al seleccionar una sociedad
+                ContainerList.GetComponent<CanvasGroup>().alpha = 0;
+                ContainerList.SetActive(false);
+                panel.GetComponent<CanvasGroup>().alpha = 0;
+                panel.SetActive(false);
+            });
+		}   
+        
     }//fSociedad
 
-    public void AceptarFiltros()
+    public void AceptarFiltros() //cambiado
     {
         //funcion que se ejecuta al presionar el boton aceptar, consigue los elementos de la sociedades y segun el toggle
         //crear una lista con los componentes que se han eliminado y despues que se recoloquen borrarlos de esa lista
@@ -137,7 +197,8 @@ public class SociedadesController : MonoBehaviour {
                     //eliminar elementos
                     foreach (Piece p in listaP)
                     {
-                        tablero.DestroyFarm(p.GetX(0), p.GetY(0));
+                        //tablero.DestroyFarm(p.GetX(0), p.GetY(0));
+                        p.gameObject.SetActive(false);
                     }//fforeach
                 }
                 else
@@ -149,7 +210,8 @@ public class SociedadesController : MonoBehaviour {
                     tablero.socGeneral = i;
                     foreach (Piece p in listaAdd)
                     {
-                        tablero.GeneratePiece(p.GetX(0), p.GetY(0), p.getIDPiece(), p.getTypePiece());
+                        //tablero.GeneratePiece(p.GetX(0), p.GetY(0), p.getIDPiece(), p.getTypePiece());
+                        p.gameObject.SetActive(true);
                     }//fforeach
                     tablero.socGeneral = AuxSoc;
                 }//felse
