@@ -19,6 +19,8 @@ public class ControllerBoard : MonoBehaviour {
 
     }
 
+    void paquitaBarrio(){
+        print("Maldita Lisiada");
     //vivavv
     void OlaKAse(){
 
