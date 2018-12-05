@@ -19,7 +19,6 @@ public class ControllerBoard : MonoBehaviour {
 
     }
 
-<<<<<<< HEAD
     //vivavv
     void OlaKAse(){
 
@@ -29,12 +28,10 @@ public class ControllerBoard : MonoBehaviour {
     }
 
 
-=======
     /* aarb */
     public void AddDestino(int comp, string destino,bool val, string tipo){
         //Agregar destino al granjero que sale de un componente
         destinos[comp].Add(destino);
         destinosComp[comp].Add(new DestinoComponentes(destino,val,tipo));
     }
->>>>>>> 42240b4bd3679b17ee3497db7d4cef962192f747
 }
